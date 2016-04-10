@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
  * @author ilya40umov
  */
 @Configuration
-@ImportResource("classpath:spring-batch-conf.xml")
+@ImportResource("classpath:/spring-batch-conf.xml")
 public class SpringBatchConfiguration
 {
 

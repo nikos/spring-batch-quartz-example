@@ -15,14 +15,28 @@
         <property name="tablePrefix" value="BATCH_"/>
     </bean>
 
-    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
-        <property name="jobRepository" ref="jobRepository"/>
-    </bean>
-
+    <!-- Avoid to overcome JDBC binding and use SimpleJobExplorer-->
     <bean id="jobExplorer" class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="tablePrefix" value="BATCH_"/>
     </bean>
+
+
+    <!--bean id="jobRepository"
+      class="org.springframework.batch.mongodb.MongoJobRepositoryFactoryBean">
+    <property name="transactionManager" ref="transactionManager" />
+    <property name="stepExecutionDao" ref="stepExecutionDao" />
+    <property name="jobExecutionDao" ref="jobExecutionDao" />
+    <property name="jobInstanceDao" ref="jobInstanceDao" />
+    <property name="executionContextDao" ref="executionContextDao" />
+    </bean-->
+
+
+
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
 
     <bean id="jobOperator" class="org.springframework.batch.core.launch.support.SimpleJobOperator">
         <property name="jobRepository" ref="jobRepository"></property>
@@ -31,13 +45,13 @@
         <property name="jobLauncher" ref="jobLauncher"></property>
     </bean>
 
-    <bean id="jobRegistry"
-          class="org.springframework.batch.core.configuration.support.MapJobRegistry"/>
+    <bean id="jobRegistry" class="org.springframework.batch.core.configuration.support.MapJobRegistry"/>
 
-    <bean
-            class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
+    <bean class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
         <property name="jobRegistry" ref="jobRegistry"/>
     </bean>
+
+
 
     <bean id="calculateEventMetricsTask" class="org.sbq.batch.tasks.CalculateEventMetricsTask"/>
     <bean id="calculateOnlineMetricsTask" class="org.sbq.batch.tasks.CalculateOnlineMetricsTask"/>
@@ -100,6 +114,5 @@
         <aop:advisor pointcut-ref="anyExecutionOfTask"
                      advice-ref="retryAdvice" order="-1"/>
     </aop:config>
-
 
 </beans>
