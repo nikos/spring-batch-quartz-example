@@ -15,6 +15,7 @@
         <!-- versions of dependencies -->
         <spring.batch.version>3.0.6.RELEASE</spring.batch.version>
         <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+        <spring.data.version>1.9.1.RELEASE</spring.data.version>
         <org.slf4j.version>1.7.21</org.slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <testng.version>6.9.10</testng.version>
@@ -98,12 +99,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${org.springframework.version}</version>
             <scope>test</scope>
@@ -136,21 +131,16 @@
             <version>${log4j.version}</version>
         </dependency>
 
-        <!--dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4.1208.jre7</version>
-        </dependency-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.2.2</version>
         </dependency>
-
+        <!-- MongoDBJobStore -->
         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <groupId>com.novemberain</groupId>
+            <artifactId>quartz-mongodb</artifactId>
+            <version>2.0.0-rc1</version>
         </dependency>
 
         <!-- Spring Batch dependencies -->
@@ -164,6 +154,19 @@
             <artifactId>spring-batch-infrastructure</artifactId>
             <version>${spring.batch.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>1.1.2.RELEASE</version>
+        </dependency>
+
+        <!-- Spring Data MongoDB -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring.data.version}</version>
+        </dependency>
+
         <!-- test scoped dependencies -->
         <dependency>
             <groupId>org.springframework.batch</groupId>
@@ -185,6 +188,14 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>

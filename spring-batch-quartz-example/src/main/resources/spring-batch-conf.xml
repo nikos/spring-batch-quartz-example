@@ -77,12 +77,12 @@
 
     <aop:aspectj-autoproxy/>
 
-    <bean id="taskBatchRetryTemplate" class="org.springframework.batch.retry.support.RetryTemplate">
+    <bean id="taskBatchRetryTemplate" class="org.springframework.retry.support.RetryTemplate">
         <property name="retryPolicy" ref="taskBatchRetryPolicy"/>
         <property name="backOffPolicy" ref="ExponentialBackOffPolicy"/>
     </bean>
 
-    <bean id="taskBatchRetryPolicy" class="org.springframework.batch.retry.policy.SimpleRetryPolicy">
+    <bean id="taskBatchRetryPolicy" class="org.springframework.retry.policy.SimpleRetryPolicy">
         <constructor-arg index="0" value="5"/>
         <constructor-arg index="1">
             <map>
@@ -91,7 +91,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="ExponentialBackOffPolicy" class="org.springframework.batch.retry.backoff.ExponentialBackOffPolicy">
+    <bean id="ExponentialBackOffPolicy" class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
         <property name="initialInterval" value="300">
             <description>Initial sleep interval value, default 300 ms</description>
         </property>
@@ -104,7 +104,7 @@
     </bean>
 
     <bean id="retryAdvice"
-          class="org.springframework.batch.retry.interceptor.RetryOperationsInterceptor">
+          class="org.springframework.retry.interceptor.RetryOperationsInterceptor">
         <property name="RetryOperations" ref="taskBatchRetryTemplate"/>
     </bean>
 

@@ -52,8 +52,6 @@ public class DatabaseConfiguration
     public DataSource dbcpDataSource()
     {
         BasicDataSource dataSource = new BasicDataSource();
-        //dataSource.setDriverClassName("org.postgresql.Driver");
-        //dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/batch_db");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/batch_db");
         dataSource.setUsername("root");

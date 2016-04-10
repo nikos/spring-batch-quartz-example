@@ -33,25 +33,22 @@ import java.util.Map;
  */
 @DisallowConcurrentExecution // because we store job state between executions
 @PersistJobDataAfterExecution // because we store last fire time between executions
-public class CalculateEventMetricsScheduledJob extends AbstractScheduledJob
-{
+public class CalculateEventMetricsScheduledJob extends AbstractScheduledJob {
+
     @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException
-    {
+    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         JobRegistry jobRegistry = getJobRegistry();
         JobLauncher jobLauncher = getJobLauncher();
         long finishedAt = context.getMergedJobDataMap().getLong("finishedAt");
         Date startingFrom = new Date(finishedAt);
         Date endingAt = new Date();
-        Map<String, JobParameter> parameters = new HashMap<String, JobParameter>();
+        Map<String, JobParameter> parameters = new HashMap<>();
         parameters.put("startingFrom", new JobParameter(startingFrom));
         parameters.put("endingAt", new JobParameter(endingAt));
-        try
-        {
+        try {
             jobLauncher.run(jobRegistry.getJob("calculateEventMetricsJob"), new JobParameters(parameters));
             context.getMergedJobDataMap().putAsString("finishedAt", endingAt.getTime());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new JobExecutionException(e);
         }
     }
